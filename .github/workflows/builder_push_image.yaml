@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 name: Build and Publish image to Docker Hub
+=======
+name: Build and Publish image to Docker Using Hub 
+>>>>>>> 39f5990 (Build and Publish image to Docker Hub)
 
 on:
   push:
