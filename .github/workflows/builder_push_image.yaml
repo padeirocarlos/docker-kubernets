@@ -1,0 +1,35 @@
+name: Build and Publish image to Docker Hub
+
+on:
+  push:
+    branches:
+      - main
+      
+    paths:
+      - 'client/Dockerfile'
+      - 'nginx/Dockerfile'
+      - 'worker/Dockerfile'
+      - 'server/Dockerfile'
+jobs:
+  publish_images:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: build image
+        run: |
+          docker build -t cpadeiro/multi-client-10-14 ./client
+          docker build -t cpadeiro/multi-nginx-10-14 ./nginx
+          docker build -t cpadeiro/multi-server-10-14 ./server
+          docker build -t cpadeiro/multi-worker-10-14 ./worker
+
+      - name: push image to docker hub
+        run: |
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_HUB_TOKEN }}
+
+          docker push cpadeiro/multi-client-10-14:latest
+          docker push cpadeiro/multi-nginx-10-14:latest
+          docker push cpadeiro/multi-server-10-14:latest
+          docker push cpadeiro/multi-worker-10-14:latest
