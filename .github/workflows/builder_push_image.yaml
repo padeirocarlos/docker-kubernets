@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      
+
     paths:
       - 'client/Dockerfile'
       - 'nginx/Dockerfile'
@@ -33,3 +33,4 @@ jobs:
           docker push cpadeiro/multi-nginx-10-14:latest
           docker push cpadeiro/multi-server-10-14:latest
           docker push cpadeiro/multi-worker-10-14:latest
+          
